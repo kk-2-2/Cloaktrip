@@ -1,0 +1,48 @@
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+const gems = [
+  { id: 1, name: "Majuli Island", coords: [27.0, 94.2], region: "Assam" },
+  { id: 2, name: "Mawlynnong", coords: [25.2, 91.9], region: "Meghalaya" },
+  { id: 3, name: "Dholavira", coords: [23.9, 70.2], region: "Gujarat" },
+  { id: 4, name: "Butterfly Beach", coords: [15.4, 74.0], region: "Goa" },
+  { id: 5, name: "Ziro Valley", coords: [27.5, 93.8], region: "Arunachal Pradesh" },
+  { id: 6, name: "Kanatal", coords: [30.4, 78.3], region: "Uttarakhand" },
+];
+
+export default function InteractiveMap() {
+  return (
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Card className="border-0 shadow-lg overflow-hidden">
+          <CardHeader className="p-6">
+            <CardTitle className="text-2xl font-bold">Explore on the Map</CardTitle>
+            <p className="text-sm text-gray-500 mt-1">Hidden gems and lesser-known regions across India</p>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="h-[420px] w-full">
+              <MapContainer center={[21.0, 78.0]} zoom={5} scrollWheelZoom={false} className="h-full w-full">
+                <TileLayer
+                  attribution='&copy; OpenStreetMap contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {gems.map((g) => (
+                  <CircleMarker key={g.id} center={g.coords} pathOptions={{ color: "#1ABC9C" }} radius={10}>
+                    <Popup>
+                      <div className="text-sm">
+                        <div className="font-semibold">{g.name}</div>
+                        <div className="text-gray-600">{g.region}</div>
+                      </div>
+                    </Popup>
+                  </CircleMarker>
+                ))}
+              </MapContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
