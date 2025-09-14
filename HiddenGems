@@ -1,0 +1,13 @@
+import React from "react";
+import HiddenGems from "../components/home/HiddenGems";
+import InteractiveMap from "../components/home/InteractiveMap";
+
+export default function HiddenGemsPage() {
+  return (
+    <div className="min-h-screen">
+      <div className="pt-10" />
+      <HiddenGems />
+      <InteractiveMap />
+    </div>
+  );
+}
