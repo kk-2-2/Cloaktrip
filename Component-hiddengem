@@ -1,0 +1,79 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Star, Eye, Heart } from "lucide-react";
+
+const gems = [
+  {
+    id: 1,
+    name: "Majuli Island",
+    state: "Assam",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800",
+    desc: "World's largest river island with vibrant Vaishnavite culture and artisan crafts.",
+    rating: 4.8
+  },
+  {
+    id: 2,
+    name: "Mawlynnong",
+    state: "Meghalaya",
+    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800",
+    desc: "Asia's cleanest village; home to living root bridges and serene sky walks.",
+    rating: 4.9
+  },
+  {
+    id: 3,
+    name: "Dholavira",
+    state: "Gujarat",
+    image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800",
+    desc: "UNESCO-listed Harappan city showcasing ancient urban planning and reservoirs.",
+    rating: 4.6
+  }
+];
+
+export default function HiddenGems() {
+  return (
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <Badge className="bg-purple-50 text-purple-600 border-purple-200 mb-3 px-3 py-1.5">🗺️ Unexplored India</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Hidden Gems</h2>
+          <p className="text-gray-600 mt-2">Discover tribal villages, eco-tourism escapes, and offbeat treasures.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {gems.map((gem) => (
+            <Card key={gem.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
+              <div className="relative">
+                <img src={gem.image} alt={gem.name} className="w-full h-48 object-cover" />
+                <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/20 text-white text-xs rounded-full px-2 py-1">
+                  <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  {gem.rating}
+                </div>
+              </div>
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{gem.name}</h3>
+                    <div className="text-sm text-gray-600 flex items-center gap-1">
+                      <MapPin className="w-3 h-3" /> {gem.state}
+                    </div>
+                  </div>
+                  <Button size="icon" variant="ghost" className="text-gray-400 hover:text-red-500">
+                    <Heart className="w-5 h-5" />
+                  </Button>
+                </div>
+                <p className="text-sm text-gray-600 mt-3 line-clamp-2">{gem.desc}</p>
+                <div className="mt-4">
+                  <Button variant="outline" className="border-teal-200 hover:bg-teal-50 w-full">
+                    <Eye className="w-4 h-4 mr-2" /> Learn More
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
