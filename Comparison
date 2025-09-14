@@ -1,0 +1,172 @@
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Plane, Bed, Star, TrendingDown, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export default function Comparison() {
+  const [tab, setTab] = useState("flights");
+
+  const platforms = ["Skyscanner", "MakeMyTrip", "Yatra"];
+  const flightRows = [
+    {
+      route: "Delhi → Mumbai",
+      airline: "IndiGo",
+      duration: "2h 15m",
+      departure: "06:30",
+      arrival: "08:45",
+      rating: 4.2,
+      prices: { Skyscanner: "₹4,520", MakeMyTrip: "₹4,650", Yatra: "₹4,620" },
+      savings: "9%"
+    },
+    {
+      route: "Bangalore → Goa",
+      airline: "Air India",
+      duration: "1h 10m",
+      departure: "15:20",
+      arrival: "16:30",
+      rating: 4.0,
+      prices: { Skyscanner: "₹2,950", MakeMyTrip: "₹3,020", Yatra: "₹3,000" },
+      savings: "6%"
+    }
+  ];
+
+  const hotels = [
+    {
+      name: "The Taj Mahal Palace",
+      location: "Colaba, Mumbai",
+      rating: 4.8,
+      amenities: ["Pool", "Spa", "WiFi"],
+      prices: { "Booking.com": "₹18,500", Agoda: "₹18,900", "MakeMyTrip": "₹18,700" },
+      savings: "16%"
+    },
+    {
+      name: "ITC Grand Central",
+      location: "Parel, Mumbai",
+      rating: 4.6,
+      amenities: ["Gym", "Restaurant", "WiFi"],
+      prices: { "Booking.com": "₹12,000", Agoda: "₹12,300", "MakeMyTrip": "₹12,150" },
+      savings: "23%"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Price Comparison</h1>
+          <p className="text-gray-600 mt-2">Side-by-side prices across platforms — no bookings, just the best links.</p>
+        </div>
+
+        <Tabs value={tab} onValueChange={setTab}>
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-gray-100 p-1 rounded-2xl">
+              <TabsTrigger value="flights" className="px-6 py-2 rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600">
+                <Plane className="w-4 h-4 mr-2" /> Flights
+              </TabsTrigger>
+              <TabsTrigger value="hotels" className="px-6 py-2 rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600">
+                <Bed className="w-4 h-4 mr-2" /> Hotels
+              </TabsTrigger>
+            </TabsList>
+          </div>
+
+          <TabsContent value="flights">
+            <div className="space-y-4">
+              {flightRows.map((f, idx) => (
+                <Card key={idx} className="hover:shadow-lg transition-all border-0">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div>
+                            <h3 className="font-semibold text-lg text-gray-900">{f.airline}</h3>
+                            <div className="text-sm text-gray-600">{f.route}</div>
+                          </div>
+                          <Badge className="bg-green-50 text-green-600">
+                            <TrendingDown className="w-3 h-3 mr-1" />
+                            {f.savings} vs avg
+                          </Badge>
+                        </div>
+                        <div className="text-sm text-gray-600 flex gap-6">
+                          <div>Dep: <span className="font-medium text-gray-800">{f.departure}</span></div>
+                          <div>Arr: <span className="font-medium text-gray-800">{f.arrival}</span></div>
+                          <div>Duration: <span className="font-medium text-gray-800">{f.duration}</span></div>
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" /> {f.rating}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex-1 grid grid-cols-3 gap-3">
+                        {platforms.map((p) => (
+                          <Card key={p} className="border border-gray-100">
+                            <CardHeader className="p-3">
+                              <CardTitle className="text-sm font-medium">{p}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-3">
+                              <div className="text-lg font-semibold text-gray-900">{f.prices[p]}</div>
+                              <Button variant="outline" className="mt-2 w-full text-sm">
+                                View on {p} <ExternalLink className="w-3 h-3 ml-1" />
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="hotels">
+            <div className="space-y-4">
+              {hotels.map((h, idx) => (
+                <Card key={idx} className="hover:shadow-lg transition-all border-0">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div>
+                            <h3 className="font-semibold text-lg text-gray-900">{h.name}</h3>
+                            <div className="text-sm text-gray-600">{h.location}</div>
+                          </div>
+                          <Badge className="bg-green-50 text-green-600">{h.savings} off</Badge>
+                        </div>
+                        <div className="text-sm text-gray-600 flex items-center gap-3">
+                          <div className="flex items-center gap-1">
+                            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" /> {h.rating}
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {h.amenities.map((a) => (
+                              <Badge key={a} variant="outline" className="text-xs">{a}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex-1 grid grid-cols-3 gap-3">
+                        {Object.entries(h.prices).map(([p, price]) => (
+                          <Card key={p} className="border border-gray-100">
+                            <CardHeader className="p-3">
+                              <CardTitle className="text-sm font-medium">{p}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-3">
+                              <div className="text-lg font-semibold text-gray-900">{price}</div>
+                              <Button variant="outline" className="mt-2 w-full text-sm">
+                                View on {p} <ExternalLink className="w-3 h-3 ml-1" />
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
