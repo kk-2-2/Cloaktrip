@@ -1,0 +1,166 @@
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Brain, Users, Star, Clock, MapPin, ArrowRight, Mountain, Sun, Trees } from "lucide-react";
+
+export default function SmartRecommendations() {
+  const [mode, setMode] = useState("ai");
+
+  const data = {
+    ai: [
+      {
+        id: 1,
+        title: "Himachal Spiritual Circuit",
+        duration: "7 days",
+        image: "https://images.unsplash.com/photo-1549887534-1541e9325c48?w=600",
+        type: "Mountain Retreat",
+        icon: Mountain,
+        rating: 4.8,
+        price: "₹15,000",
+        stops: ["Dharamshala", "McLeod Ganj", "Triund"]
+      },
+      {
+        id: 2,
+        title: "Hidden Beaches of Gokarna",
+        duration: "4 days",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600",
+        type: "Beach Escape",
+        icon: Sun,
+        rating: 4.6,
+        price: "₹8,500",
+        stops: ["Om Beach", "Half Moon", "Paradise Beach"]
+      },
+      {
+        id: 3,
+        title: "Northeast Tribal Trails",
+        duration: "10 days",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600",
+        type: "Cultural Journey",
+        icon: Trees,
+        rating: 4.9,
+        price: "₹22,000",
+        stops: ["Ziro Valley", "Majuli", "Khasi Hills"]
+      }
+    ],
+    local: [
+      {
+        id: 4,
+        title: "Rajesh's Royal Rajasthan",
+        guide: "Rajesh Kumar",
+        duration: "5 days",
+        image: "https://images.unsplash.com/photo-1512707862080-d459b14b4fca?w=600",
+        type: "Heritage Tour",
+        rating: 5.0,
+        price: "₹18,000",
+        stops: ["Jodhpur", "Jaisalmer", "Bikaner"],
+        location: "Rajasthan"
+      },
+      {
+        id: 5,
+        title: "Priya's Kerala Backwaters",
+        guide: "Priya Nair",
+        duration: "3 days",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600",
+        type: "Nature & Culture",
+        rating: 4.8,
+        price: "₹12,000",
+        stops: ["Alleppey", "Kumarakom"],
+        location: "Kerala"
+      },
+      {
+        id: 6,
+        title: "Tenzin's Ladakh Odyssey",
+        guide: "Tenzin Wangyal",
+        duration: "6 days",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600",
+        type: "High Altitude",
+        rating: 4.9,
+        price: "₹25,000",
+        stops: ["Leh", "Nubra", "Pangong"],
+        location: "Ladakh"
+      }
+    ]
+  };
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <Badge className="bg-teal-50 text-teal-600 border-teal-200 mb-3 px-3 py-1.5">
+            🎯 Personalized Planning
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Smart Recommendations</h2>
+          <p className="text-gray-600 mt-2">Toggle between AI itineraries and curated trips from verified local guides.</p>
+        </div>
+
+        <Tabs value={mode} onValueChange={setMode} className="mb-8">
+          <div className="flex justify-center">
+            <TabsList className="bg-gray-100 p-1 rounded-2xl">
+              <TabsTrigger value="ai" className="px-5 py-2.5 rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600">
+                <Brain className="w-4 h-4 mr-2" /> AI Guide
+              </TabsTrigger>
+              <TabsTrigger value="local" className="px-5 py-2.5 rounded-xl data-[state=active]:bg-white data-[state=active]:text-teal-600">
+                <Users className="w-4 h-4 mr-2" /> Local Guide
+              </TabsTrigger>
+            </TabsList>
+          </div>
+        </Tabs>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data[mode].map((item) => {
+            const Icon = item.icon;
+            return (
+              <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
+                <div className="relative">
+                  <img src={item.image} alt={item.title} className="w-full h-48 object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <Badge className="bg-black/20 text-white border-none">
+                      {mode === "ai" ? "AI Plan" : "Local Guide"}
+                    </Badge>
+                  </div>
+                  {Icon && <Icon className="absolute top-3 right-3 w-5 h-5 text-white/90" />}
+                </div>
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm font-medium">{item.rating}</span>
+                    </div>
+                  </div>
+                  <div className="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                    <Clock className="w-4 h-4" /> {item.duration}
+                    {item.location && (
+                      <>
+                        <span>•</span>
+                        <MapPin className="w-4 h-4" /> {item.location}
+                      </>
+                    )}
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-1">
+                    {item.stops.slice(0, 3).map((s) => (
+                      <Badge key={s} variant="outline" className="text-xs">{s}</Badge>
+                    ))}
+                    {item.stops.length > 3 && <Badge variant="outline" className="text-xs">+{item.stops.length - 3}</Badge>}
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div>
+                      <span className="text-xl font-bold text-gray-900">{item.price}</span>
+                      <span className="text-xs text-gray-500 ml-1">est.</span>
+                    </div>
+                    <Button variant="outline" className="border-teal-200 hover:bg-teal-50">
+                      View Details <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
