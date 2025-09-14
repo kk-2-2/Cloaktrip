@@ -1,0 +1,11 @@
+import React from "react";
+import RentalSection from "../components/home/RentalSection";
+
+export default function Rentals() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="pt-10" />
+      <RentalSection />
+    </div>
+  );
+}
