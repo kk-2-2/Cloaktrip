@@ -1,2 +1,0 @@
-# Cloaktrip
-travel and tourism 
