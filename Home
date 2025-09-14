@@ -1,0 +1,18 @@
+import React from "react";
+import HeroSection from "../components/home/HeroSection";
+import SmartRecommendations from "../components/home/SmartRecommendations";
+import RentalSection from "../components/home/RentalSection";
+import HiddenGems from "../components/home/HiddenGems";
+import InteractiveMap from "../components/home/InteractiveMap";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen">
+      <HeroSection />
+      <SmartRecommendations />
+      <RentalSection />
+      <HiddenGems />
+      <InteractiveMap />
+    </div>
+  );
+}
